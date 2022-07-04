@@ -108,6 +108,21 @@ function get_guild($id)
     return $results;
 }
 
+# A function to fetch the channels of a guild | (requires bot token)
+function get_guildchannels($id)
+{
+    $url = $GLOBALS['base_url'] . "/api/guilds/$id/channels";
+    $headers = array('Content-Type: application/x-www-form-urlencoded', 'Authorization: Bot ' . $GLOBALS['bot_token']);
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $results = json_decode($response, true);
+    return $results;
+}
+
 # A function to get user connections | (connections scope)
 function get_connections()
 {
